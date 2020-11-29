@@ -39,7 +39,7 @@ pub use frame_support::{
 };
 
 /// Import the template pallet.
-pub use pallet_template;
+pub use pallet_polkadex;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -122,7 +122,7 @@ pub fn native_version() -> NativeVersion {
 parameter_types! {
 	pub const BlockHashCount: BlockNumber = 2400;
 	/// We allow for 2 seconds of compute with a 6 second average block time.
-	pub const MaximumBlockWeight: Weight = 2 * WEIGHT_PER_SECOND;
+	pub const MaximumBlockWeight: Weight =( 2 * WEIGHT_PER_SECOND)/3;
 	pub const AvailableBlockRatio: Perbill = Perbill::from_percent(75);
 	/// Assume 10% of weight for average on_initialize calls.
 	pub MaximumExtrinsicWeight: Weight = AvailableBlockRatio::get()
@@ -249,7 +249,7 @@ parameter_types! {
 }
 
 impl pallet_transaction_payment::Trait for Runtime {
-	type Currency = Balances;
+	type Currency = SpendingAssetCurrency<Self>;
 	type OnTransactionPayment = ();
 	type TransactionByteFee = TransactionByteFee;
 	type WeightToFee = IdentityFee<Balance>;
@@ -261,11 +261,25 @@ impl pallet_sudo::Trait for Runtime {
 	type Call = Call;
 }
 
-/// Configure the template pallet in pallets/template.
-impl pallet_template::Trait for Runtime {
-	type Event = Event;
+parameter_types! {
+	/// Cost for Registering a Trading Pair
+	pub const TradingPairReservationFee: u128 = 1_000_000_000_000;
 }
 
+/// Configure the pallet polkadex in pallets/polkadex.
+impl pallet_polkadex::Trait for Runtime {
+	type Event = Event;
+	type TradingPairReservationFee = TradingPairReservationFee;
+}
+
+impl pallet_generic_asset::Trait for Runtime {
+	type Balance = Balance;
+	type AssetId = u32;
+	type Event = Event;
+	type MaxLocks = MaxLocks;
+}
+
+use pallet_generic_asset::{SpendingAssetCurrency, StakingAssetCurrency};
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -281,8 +295,9 @@ construct_runtime!(
 		Balances: pallet_balances::{Module, Call, Storage, Config<T>, Event<T>},
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
+		GenericAsset: pallet_generic_asset::{Module, Call, Storage, Config<T>, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
-		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+		Polkadex: pallet_polkadex::{Module, Call, Storage, Event<T>},
 	}
 );
 

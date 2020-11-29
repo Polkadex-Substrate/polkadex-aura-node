@@ -1,13 +1,13 @@
 use sp_core::{Pair, Public, sr25519};
-use node_template_runtime::{
+use node_polkadex_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig,
-	SudoConfig, SystemConfig, WASM_BINARY, Signature
+	SudoConfig, SystemConfig, WASM_BINARY, Signature , GenericAssetConfig
 };
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{Verify, IdentifyAccount};
 use sc_service::ChainType;
-
+use node_polkadex_runtime::Balance;
 // The URL for the telemetry server.
 // const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
 
@@ -92,6 +92,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 			vec![
 				authority_keys_from_seed("Alice"),
 				authority_keys_from_seed("Bob"),
+				authority_keys_from_seed("Charlie"),
 			],
 			// Sudo account
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
@@ -113,7 +114,13 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 			true,
 		),
 		// Bootnodes
-		vec![],
+		vec![
+			"/ip4/54.176.87.85/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp".parse().unwrap(), // Alice
+			"/ip4/52.76.105.188/tcp/30333/p2p/12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD".parse().unwrap(), // Bob
+			"/ip4/18.198.113.243/tcp/30333/p2p/12D3KooWSCufgHzV4fCwRijfH2k3abrpAJxTKxEvN1FDuRXA2U9x".parse().unwrap(), // Charlie
+			// "/ip4/217.182.197.118/tcp/30333/p2p/12D3KooWSsChzF81YDUKpe9Uk5AHV5oqAaXAcWNSPYgoLauUk4st".parse().unwrap(), // Dave
+			// "/ip4/51.79.163.57/tcp/30333/p2p/12D3KooWSuTq6MG9gPt7qZqLFKkYrfxMewTZhj9nmRHJkPwzWDG2".parse().unwrap(), // Eve
+		],
 		// Telemetry
 		None,
 		// Protocol ID
@@ -133,6 +140,8 @@ fn testnet_genesis(
 	endowed_accounts: Vec<AccountId>,
 	_enable_println: bool,
 ) -> GenesisConfig {
+	const STASH: Balance = 100;
+	const UNIT: u128 = 1_000_000_000_000;
 	GenesisConfig {
 		frame_system: Some(SystemConfig {
 			// Add Wasm runtime to storage.
@@ -141,7 +150,7 @@ fn testnet_genesis(
 		}),
 		pallet_balances: Some(BalancesConfig {
 			// Configure endowed accounts with initial balance of 1 << 60.
-			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
+			balances: vec![], // endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
 		}),
 		pallet_aura: Some(AuraConfig {
 			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),
@@ -153,5 +162,14 @@ fn testnet_genesis(
 			// Assign network admin rights.
 			key: root_key,
 		}),
+		pallet_generic_asset: Some(GenericAssetConfig{
+			assets: vec![0],
+			initial_balance: 3*UNIT,
+			endowed_accounts: endowed_accounts
+				.clone().into_iter().map(Into::into).collect(),
+			next_asset_id: 1,
+			staking_asset_id: 0,
+			spending_asset_id: 0
+		})
 	}
 }
