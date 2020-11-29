@@ -182,7 +182,7 @@ decl_module! {
         /// # Return
         ///
         ///  This function returns a status that, new Order is successfully created or not.
-        #[weight = 1000000000]
+        #[weight = 100000]
 	    pub fn submit_order(origin, order_type: OrderType, trading_pair: T::Hash,  price: T::Balance, quantity: T::Balance) -> dispatch::DispatchResultWithPostInfo{
 	        let trader = ensure_signed(origin)?;
 
