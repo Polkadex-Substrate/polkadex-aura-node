@@ -40,6 +40,12 @@ pub use frame_support::{
 
 /// Import the template pallet.
 pub use pallet_polkadex;
+use pallet_polkadex::data_structure_rpc::LinkedPriceLevelRpc;
+use pallet_polkadex::data_structure_rpc::OrderbookUpdates;
+use pallet_polkadex::data_structure_rpc::OrderbookRpc;
+use pallet_polkadex::data_structure_rpc::MarketDataRpc;
+use pallet_polkadex::data_structure_rpc::ErrorRpc;
+use sp_runtime::FixedU128;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -457,6 +463,39 @@ impl_runtime_apis! {
 			TransactionPayment::query_info(uxt, len)
 		}
 	}
+
+	impl runtime_api::DexStorageApi<Block> for Runtime{
+
+	    fn get_ask_level(trading_pair: Hash) -> Result<Vec<FixedU128>,ErrorRpc> {
+
+			Polkadex::get_ask_level(trading_pair)
+		}
+
+		fn get_bid_level(trading_pair: Hash) -> Result<Vec<FixedU128>,ErrorRpc> {
+
+			Polkadex::get_bid_level(trading_pair)
+		}
+
+		fn get_price_level(trading_pair: Hash) -> Result<Vec<LinkedPriceLevelRpc>,ErrorRpc> {
+		    Polkadex::get_price_level(trading_pair)
+		}
+		fn get_orderbook(trading_pair: Hash) -> Result<OrderbookRpc, ErrorRpc> {
+		    Polkadex::get_orderbook(trading_pair)
+		}
+
+		fn get_all_orderbook() -> Result<Vec<OrderbookRpc>, ErrorRpc> {
+		    Polkadex::get_all_orderbook()
+		}
+
+		fn get_market_info(trading_pair: Hash,blocknum: u32) -> Result<MarketDataRpc, ErrorRpc> {
+		    Polkadex::get_market_info(trading_pair,blocknum)
+		}
+
+		fn get_orderbook_updates(trading_pair: Hash)-> Result<OrderbookUpdates, ErrorRpc>{
+			Polkadex::get_orderbook_updates(trading_pair)
+		}
+
+	 }
 
 	#[cfg(feature = "runtime-benchmarks")]
 	impl frame_benchmarking::Benchmark<Block> for Runtime {

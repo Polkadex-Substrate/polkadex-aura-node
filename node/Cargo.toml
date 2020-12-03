@@ -24,7 +24,8 @@ structopt = '0.3.8'
 
 # local dependencies
 node-polkadex-runtime = { path = '../runtime', version = '2.0.0' }
-
+runtime-api = { default-features = false, path = "../pallets/polkadex/runtime-api" }
+rpc = { path = "../pallets/polkadex/rpc" }
 # Substrate dependencies
 frame-benchmarking = '2.0.0'
 frame-benchmarking-cli = '2.0.0'

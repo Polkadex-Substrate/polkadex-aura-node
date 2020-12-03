@@ -14,38 +14,10 @@ jsonrpc-derive = "15.0.0"
 serde = { version = "1.0.101", features = ["derive"], optional = true }
 runtime-api = { default-features = false, path = "../runtime-api" }
 pallet-polkadex = { default-features = false, path = "../" }
-
-[dependencies.sp-rpc]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-runtime]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-blockchain]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-api]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-arithmetic]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-std]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
-
-[dependencies.sp-core]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0'
+sc-rpc = '2.0.0'
+sp-runtime = '2.0.0'
+sp-blockchain = '2.0.0'
+sp-api = '2.0.0'
+sp-arithmetic = '2.0.0'
+sp-std ='2.0.0'
+sp-core ='2.0.0'
