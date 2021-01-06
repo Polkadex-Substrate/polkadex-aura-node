@@ -105,7 +105,9 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 				get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Charlie//stash"),
-				hex!["64833c8006b06fd5ba2ce02fa01b5df003c87f843ee7b71de61c66d5e029f900"].into(), // Twitter Faucet
+				hex!["64833c8006b06fd5ba2ce02fa01b5df003c87f843ee7b71de61c66d5e029f900"].into(), // Twitter Faucet #1
+				hex!["18c347256f62bc0a6c48c2c6f9fcff94d680f39009d698d25a86bbe7096bf833"].into(), // Twitter Faucet #2
+				hex!["c442c5b8864fde4decd030153c6d444d703943e611f07e31227100f1a1c1892a"].into(), // Twitter Faucet #3
 				hex!["de724e37306b34e8d81dff846d80413bfefedf54b44bf06dad26d730cbe3c438"].into(), // Load Generator
 				hex!["a07747c22170a6378767cd2c6d53fb0faf3a5944f62d163b014b3b7cc100c22c"].into()  // Sudo Key
 			],
@@ -116,8 +118,6 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 			"/ip4/54.176.87.85/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp".parse().unwrap(), // Alice
 			"/ip4/52.76.105.188/tcp/30333/p2p/12D3KooWHdiAxVd8uMQR1hGWXccidmfCwLqcMpGwR6QcTP6QRMuD".parse().unwrap(), // Bob
 			"/ip4/18.198.113.243/tcp/30333/p2p/12D3KooWSCufgHzV4fCwRijfH2k3abrpAJxTKxEvN1FDuRXA2U9x".parse().unwrap(), // Charlie
-			// "/ip4/217.182.197.118/tcp/30333/p2p/12D3KooWSsChzF81YDUKpe9Uk5AHV5oqAaXAcWNSPYgoLauUk4st".parse().unwrap(), // Dave
-			// "/ip4/51.79.163.57/tcp/30333/p2p/12D3KooWSuTq6MG9gPt7qZqLFKkYrfxMewTZhj9nmRHJkPwzWDG2".parse().unwrap(), // Eve
 		],
 		// Telemetry
 		None,
