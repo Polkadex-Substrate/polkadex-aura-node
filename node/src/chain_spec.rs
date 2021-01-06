@@ -8,6 +8,7 @@ use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{Verify, IdentifyAccount};
 use sc_service::ChainType;
 use node_polkadex_runtime::Balance;
+use hex_literal::hex;
 // The URL for the telemetry server.
 // const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
 
@@ -95,21 +96,18 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 				authority_keys_from_seed("Charlie"),
 			],
 			// Sudo account
-			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			hex!["a07747c22170a6378767cd2c6d53fb0faf3a5944f62d163b014b3b7cc100c22c"].into(),
 			// Pre-funded accounts
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				get_account_id_from_seed::<sr25519::Public>("Bob"),
 				get_account_id_from_seed::<sr25519::Public>("Charlie"),
-				get_account_id_from_seed::<sr25519::Public>("Dave"),
-				get_account_id_from_seed::<sr25519::Public>("Eve"),
-				get_account_id_from_seed::<sr25519::Public>("Ferdie"),
 				get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Charlie//stash"),
-				get_account_id_from_seed::<sr25519::Public>("Dave//stash"),
-				get_account_id_from_seed::<sr25519::Public>("Eve//stash"),
-				get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
+				hex!["64833c8006b06fd5ba2ce02fa01b5df003c87f843ee7b71de61c66d5e029f900"].into(), // Twitter Faucet
+				hex!["de724e37306b34e8d81dff846d80413bfefedf54b44bf06dad26d730cbe3c438"].into(), // Load Generator
+				hex!["a07747c22170a6378767cd2c6d53fb0faf3a5944f62d163b014b3b7cc100c22c"].into()  // Sudo Key
 			],
 			true,
 		),
@@ -163,11 +161,11 @@ fn testnet_genesis(
 			key: root_key,
 		}),
 		pallet_generic_asset: Some(GenericAssetConfig{
-			assets: vec![0],
+			assets: vec![0,1,2],
 			initial_balance: UNIT*UNIT,
 			endowed_accounts: endowed_accounts
 				.clone().into_iter().map(Into::into).collect(),
-			next_asset_id: 1,
+			next_asset_id: 3,
 			staking_asset_id: 0,
 			spending_asset_id: 0
 		})
