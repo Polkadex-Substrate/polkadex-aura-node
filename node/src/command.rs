@@ -31,11 +31,11 @@ impl SubstrateCli for Cli {
 	}
 
 	fn description() -> String {
-		env!("Polkadex Testnet Node").into()
+		env!("CARGO_PKG_DESCRIPTION").into()
 	}
 
 	fn author() -> String {
-		env!("Polkadex Authors").into()
+		env!("CARGO_PKG_AUTHORS").into()
 	}
 
 	fn support_url() -> String {
