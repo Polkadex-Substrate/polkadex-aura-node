@@ -23,7 +23,7 @@ use node_polkadex_runtime::Block;
 
 impl SubstrateCli for Cli {
 	fn impl_name() -> String {
-		"Substrate Node".into()
+		"Polkadex Node".into()
 	}
 
 	fn impl_version() -> String {
@@ -31,15 +31,15 @@ impl SubstrateCli for Cli {
 	}
 
 	fn description() -> String {
-		env!("CARGO_PKG_DESCRIPTION").into()
+		env!("Polkadex Testnet Node").into()
 	}
 
 	fn author() -> String {
-		env!("CARGO_PKG_AUTHORS").into()
+		env!("Polkadex Authors").into()
 	}
 
 	fn support_url() -> String {
-		"support.anonymous.an".into()
+		"business@polkadex.trade".into()
 	}
 
 	fn copyright_start_year() -> i32 {

@@ -10,7 +10,7 @@ use sc_service::ChainType;
 use node_polkadex_runtime::Balance;
 use hex_literal::hex;
 // The URL for the telemetry server.
-// const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
+const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
 
 /// Specialized `ChainSpec`. This is a specialization of the general Substrate ChainSpec type.
 pub type ChainSpec = sc_service::GenericChainSpec<GenesisConfig>;
@@ -68,6 +68,7 @@ pub fn development_config() -> Result<ChainSpec, String> {
 		// Bootnodes
 		vec![],
 		// Telemetry
+		// Some(STAGING_TELEMETRY_URL),
 		None,
 		// Protocol ID
 		None,
@@ -83,9 +84,9 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 
 	Ok(ChainSpec::from_genesis(
 		// Name
-		"Local Testnet",
+		"Polkadex Testnet",
 		// ID
-		"local_testnet",
+		"polkadex_testnet",
 		ChainType::Local,
 		move || testnet_genesis(
 			wasm_binary,
