@@ -1,6 +1,6 @@
 {
-  "name": "Local Testnet",
-  "id": "local_testnet",
+  "name": "Polkadex Testnet",
+  "id": "polkadex_testnet",
   "chainType": "Local",
   "bootNodes": [
     "/ip4/54.176.87.85/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp",
