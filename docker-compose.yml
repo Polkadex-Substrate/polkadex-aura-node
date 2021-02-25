@@ -34,14 +34,14 @@ services:
   depends_on:
    - docker-host
    - bootnode_alice
- upserver:
+ observer:
   container_name: upserver
   build: .
   ports:
    - "30333:30333"
    - "9955:9955"
    - "9956:9956"
-  command: ["/bin/bash","/polkadex-aura-node/scripts/docker-compose/upserver.sh"]
+  command: ["/bin/bash","/polkadex-aura-node/scripts/docker-compose/observer.sh"]
   depends_on:
    - docker-host
    - bootnode_alice

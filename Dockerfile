@@ -8,4 +8,4 @@ RUN rustup toolchain install nightly-2020-09-28 && rustup default nightly-2020-0
 COPY . /polkadex-aura-node/
 RUN cd /polkadex-aura-node &&  cargo build --release
 RUN /polkadex-aura-node/scripts/createCustomSpec.sh
-RUN chmod +x /polkadex-aura-node/scripts/docker-compose/upserver.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/bootnode_alice.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/validator_charlie.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/validator_bob.sh
+RUN chmod +x /polkadex-aura-node/scripts/docker-compose/observer.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/bootnode_alice.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/validator_charlie.sh && chmod +x /polkadex-aura-node/scripts/docker-compose/validator_bob.sh
